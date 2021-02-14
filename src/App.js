@@ -1,33 +1,16 @@
 import React, { Component  } from 'react';
-import logo from './logo.svg';
+import CounterComponent from './components/counter/Counter';
+import FirstComponent from './components/learning-examples/FirstComponent';
 import './App.css';
 
-import MyFirstComponent from './MyComponent';
-
-class App extends Component {
-  render() {
-    return(
-      <div className="App">
-        My Hello World
-
-        <FirstComponent></FirstComponent>
-        <MyFirstComponent></MyFirstComponent>
-      </div>
-    );
-  }
-}
-
-
-
-class FirstComponent extends Component {
-  render(){
+function App() {
     return (
-      <div className="firstComponent">
-        My First Component
-      </div>
-    )
-  }
+        <div className="App">
+            {/* <p>I am using function component</p>
+            <FirstComponent></FirstComponent> */}
+            <CounterComponent></CounterComponent>
+        </div>
+    );
 }
-
 
 export default App;

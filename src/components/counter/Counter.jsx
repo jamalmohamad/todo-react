@@ -16,12 +16,14 @@ import './Counter.css'
         this.increment = this.increment.bind(this);
 
     }
-    
-    render(){
+
+    // lambda, anonymous function
+    // 
+    render () {
         return (
             <div className="counter">
-                <button onClick={this.increment}>+1</button>
-                <span className="count">{this.state.counter}</span>
+                <button onClick={this.increment}>+ {this.props.by}</button>
+                <span className="count" style={{color: "red"}}>{this.state.counter}</span>
             </div>
         )
     }
@@ -29,7 +31,7 @@ import './Counter.css'
     increment() {
         console.log('increment');
         this.setState({
-            counter: this.state.counter + 1
+            counter: this.state.counter + this.props.by
         });
     };
 }

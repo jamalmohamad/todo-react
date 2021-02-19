@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react';
 import React, { Component  } from 'react';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
+import AuthenticationService from './AuthenticationService';
 
 
 // Switch ensures only one component is active 
@@ -182,6 +183,7 @@ class LoginComponent extends Component {
             // redirect to welcome page
 
             console.log('Successful')
+            AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
             this.props.history.push(`/welcome/${this.state.username}`)
             this.setState({showSuccessMessage: true})
             this.setState({hasLoginFailed: false})

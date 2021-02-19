@@ -16,6 +16,7 @@ class TodoApp extends Component {
                         <Route path="/login" component={LoginComponent}/>
                         <Route path="/welcome/:name" component={WelcomeComponent} />
                         <Route  path="/todos" component = {ListTodosComponent} />
+                        <Route path="/logout" component={LogoutComponent} />
                         <Route  component={ErrorComponent}/>
                     </Switch>
                     <FooterComponent />
@@ -53,9 +54,10 @@ class HeaderComponent extends Component {
 class FooterComponent extends Component {
     render() {
         return (
-            <div>
-                Footer <hr/>
-            </div>
+            <footer className="footer">
+                <span className="text-muted">All rights reserved 2021 c</span>
+
+            </footer>
         )
     }
 }
@@ -77,7 +79,8 @@ class ListTodosComponent extends Component {
         return (
             <div>
                 <h1>List Todos</h1>
-                <table>
+                <div class="container">
+                <table class="table">
                     <thead>
                     <tr>
                         <th>id</th>
@@ -100,6 +103,7 @@ class ListTodosComponent extends Component {
                         }
                     </tbody>
                 </table>
+                </div>
             </div>
         )
     }
@@ -116,12 +120,29 @@ class ErrorComponent extends Component {
 }
 
 
+// if we use <a> it will load the whole page, this is not part of SPA so we will use <Link to /> 
 
 class WelcomeComponent extends Component {
     render() {
         return (
-            // if we use <a> it will load the whole page, this is not part of SPA so we will use <Link to /> 
+            <>
+            <h1>Welcome</h1>
             <div>Welcome {this.props.match.params.name}. You can manage your todos <Link to="/todos">here</Link> </div>
+            </>
+        )
+    }
+}
+
+
+class LogoutComponent extends Component {
+    render() {
+        return (
+            <>
+                <h1>You are logged out</h1>
+                <div className="container">
+                    Thank you for Using our application.
+                </div>
+            </>
         )
     }
 }
@@ -186,13 +207,15 @@ class LoginComponent extends Component {
 
     render(){
         return (
-            
             <div>
-                <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>
-               <ShowSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>
-                User Name : <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
-                Password: <input type="password" name="password" value = {this.state.password || ""} onChange={this.handleChange}/>
-                <button onClick={this.loginClicked}>Login</button>
+                <h1>Login</h1>
+                <div className="container">
+                    <ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>
+                    <ShowSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>
+                    User Name : <input type="text" name="username" value={this.state.username} onChange={this.handleChange}/>
+                    Password: <input type="password" name="password" value = {this.state.password || ""} onChange={this.handleChange}/>
+                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
+                </div>
             </div>
         )
     }
@@ -200,7 +223,7 @@ class LoginComponent extends Component {
 
 function ShowInvalidCredentials(props) {
     if(props.hasLoginFailed){
-        return  <div>Invalid Credentials</div>
+        return  <div className="alert alert-warning">Invalid Credentials</div>
     }
     return null;
 }

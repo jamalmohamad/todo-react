@@ -1,6 +1,9 @@
+import { render } from '@testing-library/react';
 import React, { Component  } from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
+
+// Switch ensures only one component is active 
 class TodoApp extends Component {
     render() {
         return(
@@ -8,14 +11,29 @@ class TodoApp extends Component {
                 My Todo Application
 
                 <Router>
-                    <Route path="/" exact    component={LoginComponent} />
-                    <Route path="/login" component={LoginComponent}/>
-                    <Route path="/welcome" component={WelcomeComponent} />
+                    <Switch>
+                        <Route path="/" exact component={LoginComponent} />
+                        <Route path="/login" component={LoginComponent}/>
+                        <Route path="/welcome" component={WelcomeComponent} />
+                        <Route  component={ErrorComponent}/>
+                    </Switch>
                 </Router>
             </div>
         )
     }
 }
+
+
+// error component - u can create it ith class or as a function component
+class ErrorComponent extends Component {
+    render() {
+        return (
+            <div>An error occured</div>
+        )
+    }
+}
+
+
 
 class WelcomeComponent extends Component {
     render() {

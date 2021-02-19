@@ -3,6 +3,7 @@ import Counter from './components/counter/Counter';
 import FirstComponent from './components/learning-examples/FirstComponent';
 import TodoApp from './components/todo/TodoApp';
 import './App.css';
+import './bootstrap.css';
 
 export default function App() {
     return (

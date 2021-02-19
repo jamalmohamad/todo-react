@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import React, { Component  } from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 
 // Switch ensures only one component is active 
@@ -31,9 +31,9 @@ class ListTodosComponent extends Component {
         super(props)
         this.state = {
             ListTodosComponent: 
-            [ {id:1 , description: 'Learn React'},
-              {id: 2, description: 'Become an Expert'},
-              {id:3, description: 'visit india'}]
+            [ {id:1 , description: 'Learn React', done: false, targetDate: new Date()},
+              {id: 2, description: 'Become an Expert', done: true, targetDate: new Date()},
+              {id:3, description: 'visit india', done: false, targetDate: new Date()}]
         }
     }
 
@@ -47,6 +47,8 @@ class ListTodosComponent extends Component {
                     <tr>
                         <th>id</th>
                         <th>description</th>
+                        <th>Target Date </th>
+                        <th>Is Completed?</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -55,6 +57,8 @@ class ListTodosComponent extends Component {
                                 <tr>
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
+                                    <td>{todo.done.toString()}</td>
+                                    <td>{todo.targetDate.toString()}</td>
                                 </tr>
                                 )
                     
@@ -81,7 +85,8 @@ class ErrorComponent extends Component {
 class WelcomeComponent extends Component {
     render() {
         return (
-            <div>Welcome {this.props.match.params.name}</div>
+            // if we use <a> it will load the whole page, this is not part of SPA so we will use <Link to /> 
+            <div>Welcome {this.props.match.params.name}. You can manage your todos <Link to="/todos">here</Link> </div>
         )
     }
 }

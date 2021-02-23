@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 import AuthenticationService from './AuthenticationService';
 import AuthenticatedRoute from './AuthenticatedRoute.jsx';
 import HeaderComponent from './HeaderComponent.jsx';
+import HelloWorldService from '../../api/todo/HelloWorldService';
 
 // Switch ensures only one component is active 
 class TodoApp extends Component {
@@ -102,13 +103,45 @@ class ErrorComponent extends Component {
 // if we use <a> it will load the whole page, this is not part of SPA so we will use <Link to /> 
 
 class WelcomeComponent extends Component {
+    
+    constructor(props){
+        super(props);
+        this.retrieveWelcomeMessage = this.retrieveWelcomeMessage.bind(this);
+        this.state = {
+            welcomeMessage: ''
+        }
+        this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
+    }
+
     render() {
         return (
             <>
             <h1>Welcome</h1>
-            <div>Welcome {this.props.match.params.name}. You can manage your todos <Link to="/todos">here</Link> </div>
+            <div className="container">Welcome {this.props.match.params.name}. You can manage your todos <Link to="/todos">here</Link> </div>
+            <div className="container">
+                Click here to get a customized welcome message.
+                <button onClick={this.retrieveWelcomeMessage} className="btn btn-success">Get Welcome Message</button>
+            </div>
+
+            <div className="container">
+                {this.state.welcomeMessage}
+            </div>
+
+
             </>
         )
+    }
+
+    retrieveWelcomeMessage() {
+        console.log('customized welcome');
+        HelloWorldService.executeHelloWorldService()
+            .then(response => this.handleSuccessfulResponse(response));
+            // .catch()
+    }
+
+    handleSuccessfulResponse(response) {
+        console.log('handle successful response method');
+        this.setState({welcomeMessage:  response.data});
     }
 }
 

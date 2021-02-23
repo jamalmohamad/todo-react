@@ -134,14 +134,22 @@ class WelcomeComponent extends Component {
 
     retrieveWelcomeMessage() {
         console.log('customized welcome');
-        HelloWorldService.executeHelloWorldService()
-            .then(response => this.handleSuccessfulResponse(response));
-            // .catch()
+        // HelloWorldService.executeHelloWorldService()
+        //     .then(response => this.handleSuccessfulResponse(response))
+        //     .catch(error => console.log(error));
+
+        // HelloWorldService.executeHelloWorldBeanService()
+        //     .then(response => this.handleSuccessfulResponse(response))
+        //     .catch(error => console.log(error));
+        
+        HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
+            .then(response => this.handleSuccessfulResponse(response))
+            .catch(error => console.log(error));
     }
 
     handleSuccessfulResponse(response) {
-        console.log('handle successful response method');
-        this.setState({welcomeMessage:  response.data});
+        console.log(response);
+        this.setState({welcomeMessage:  response.data.message});     // very important, here i got the response then data then inside data I have {} objects inside I have message key 
     }
 }
 

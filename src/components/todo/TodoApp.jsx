@@ -111,6 +111,7 @@ class WelcomeComponent extends Component {
             welcomeMessage: ''
         }
         this.handleSuccessfulResponse = this.handleSuccessfulResponse.bind(this);
+        this.handleError = this.handleError.bind(this);
     }
 
     render() {
@@ -144,12 +145,17 @@ class WelcomeComponent extends Component {
         
         HelloWorldService.executeHelloWorldPathVariableService(this.props.match.params.name)
             .then(response => this.handleSuccessfulResponse(response))
-            .catch(error => console.log(error));
+            .catch(error => this.handleError(error));
     }
 
     handleSuccessfulResponse(response) {
         console.log(response);
         this.setState({welcomeMessage:  response.data.message});     // very important, here i got the response then data then inside data I have {} objects inside I have message key 
+    }
+
+    handleError(error) {
+        console.log(error.response);
+        this.setState({welcomeMessage: error.response.data.error})
     }
 }
 

@@ -1,4 +1,4 @@
-package com.template.demo;
+package com.template.demo.helloworld;
 
 public class HelloWorldBean {
 

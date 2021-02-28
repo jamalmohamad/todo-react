@@ -6,6 +6,7 @@ import AuthenticatedRoute from './AuthenticatedRoute.jsx';
 import HeaderComponent from './HeaderComponent.jsx';
 import HelloWorldService from '../../api/todo/HelloWorldService';
 import TodoDataService from '../../api/todo/TodoDataService';
+import TodoComponent from './TodoComponent.jsx';
 
 
 // Switch ensures only one component is active 
@@ -20,6 +21,7 @@ class TodoApp extends Component {
                         <Route path="/" exact component={LoginComponent} />
                         <Route path="/login" component={LoginComponent}/>
                         <AuthenticatedRoute path="/welcome/:name" component={WelcomeComponent} />
+                        <AuthenticatedRoute path="/todos/:id" component={TodoComponent}/>   {/** order of the components is important */}
                         <AuthenticatedRoute  path="/todos" component = {ListTodosComponent} />
                         <AuthenticatedRoute path="/logout" component={LogoutComponent} />
                         <Route  component={ErrorComponent}/>
@@ -54,6 +56,7 @@ class ListTodosComponent extends Component {
         }
         this.deleteTodoClicked = this.deleteTodoClicked.bind(this);
         this.refreshTodos = this.refreshTodos.bind(this);
+        this.updateTodoClicked = this.updateTodoClicked.bind(this);
 
     }
 
@@ -102,6 +105,21 @@ class ListTodosComponent extends Component {
     }
 
 
+    updateTodoClicked(id){
+        console.log('Update ' + id);
+        this.props.history.push(`/todos/${id}`)
+        // let username = AuthenticationService.getLoggedInUserName();
+        // // console.log(id, username)
+        // TodoDataService.deleteTodo(username, id)
+        //     .then(
+        //         response => {
+        //             this.setState({message: `Delete of todo ${id}`})
+        //             this.refreshTodos()
+        //         }
+        //     )
+    }
+
+
     render() {
         return (
             <div>
@@ -115,6 +133,7 @@ class ListTodosComponent extends Component {
                         <th>description</th>
                         <th>Target Date </th>
                         <th>Is Completed?</th>
+                        <th>Update</th>
                         <th>Delete</th>
                     </tr>
                     </thead>
@@ -126,6 +145,7 @@ class ListTodosComponent extends Component {
                                     <td>{todo.description}</td>
                                     <td>{todo.done.toString()}</td>
                                     <td>{todo.targetDate.toString()}</td>
+                                    <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
                                     <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
                                 </tr>
                                 )

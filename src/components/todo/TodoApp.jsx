@@ -5,6 +5,8 @@ import AuthenticationService from './AuthenticationService';
 import AuthenticatedRoute from './AuthenticatedRoute.jsx';
 import HeaderComponent from './HeaderComponent.jsx';
 import HelloWorldService from '../../api/todo/HelloWorldService';
+import TodoDataService from '../../api/todo/TodoDataService';
+
 
 // Switch ensures only one component is active 
 class TodoApp extends Component {
@@ -48,10 +50,25 @@ class ListTodosComponent extends Component {
         super(props)
         this.state = {
             ListTodosComponent: 
-            [ {id:1 , description: 'Learn React', done: false, targetDate: new Date()},
-              {id: 2, description: 'Become an Expert', done: true, targetDate: new Date()},
-              {id:3, description: 'visit india', done: false, targetDate: new Date()}]
+             [ 
+                //   {id:1 , description: 'Learn React', done: false, targetDate: new Date()},
+                //   {id: 2, description: 'Become an Expert', done: true, targetDate: new Date()},
+                //   {id:3, description: 'visit india', done: false, targetDate: new Date()}
+            ]
         }
+    }
+
+
+    componentDidMount() {
+        let username = AuthenticationService.getLoggedInUserName();
+        TodoDataService.retrieveAllTodos(username)
+            .then(
+                response => {
+                    console.log(response);
+                    this.setState({ListTodosComponent: response.data})
+                }
+            )
+
     }
 
 

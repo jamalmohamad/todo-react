@@ -3,6 +3,7 @@ package com.template.demo;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -14,8 +15,21 @@ public class TodoResource {
 	private TodoHardCodedService todoService;
 
 	@GetMapping("/users/{username}/todos")
-	public List<Todo> getAllTodos(@PathVariable String username){
+	public List<Todo> getAllTodos(@PathVariable String username) throws InterruptedException{
+		// Thread.sleep(1000);
 		return todoService.findAll();
+	}
+
+
+
+	// DELETE
+	@DeleteMapping("/users/{username/todos/{id}}")
+	public ResponseEntity<Void> delteTodo(@PathVariable String username, @PathVariable long id){
+		Todo todo = todoService.deleteById(id);
+		if(todo!=null) {
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
 	}
 
 }

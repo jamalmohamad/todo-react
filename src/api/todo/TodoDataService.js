@@ -12,6 +12,10 @@ class TodoDataService {
         return axios.delete(`http://localhost:8080/users/${name}/todos/${id}`)
 
     }
+
+    retrieveTodo(name, id) {
+        return axios.get(`http://localhost:8080/users/${name}/todos/${id}`);
+    }
 }
 
 

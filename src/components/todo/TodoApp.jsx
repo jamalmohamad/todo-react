@@ -7,7 +7,7 @@ import HeaderComponent from './HeaderComponent.jsx';
 import HelloWorldService from '../../api/todo/HelloWorldService';
 import TodoDataService from '../../api/todo/TodoDataService';
 import TodoComponent from './TodoComponent.jsx';
-
+import moment from 'moment';
 
 // Switch ensures only one component is active 
 class TodoApp extends Component {
@@ -143,8 +143,8 @@ class ListTodosComponent extends Component {
                                 <tr key={todo.id}>
                                     <td>{todo.id}</td>
                                     <td>{todo.description}</td>
+                                    <td>{moment(todo.targetDate.toString()).format('YYYY-MM-DD')}</td>
                                     <td>{todo.done.toString()}</td>
-                                    <td>{todo.targetDate.toString()}</td>
                                     <td><button className="btn btn-success" onClick={() => this.updateTodoClicked(todo.id)}>Update</button></td>
                                     <td><button className="btn btn-danger" onClick={() => this.deleteTodoClicked(todo.id)}>Delete</button></td>
                                 </tr>
